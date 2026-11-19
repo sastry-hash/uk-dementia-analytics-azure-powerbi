@@ -44,6 +44,26 @@ The processed datasets are used in Power BI to create an interactive four-page d
 
 The project follows a three-layer Medallion Architecture.
 
+flowchart TD
+    A["NHS PCDEM Data"]
+    B["ONS MYE2 Population Data"]
+    C["Geographic Lookup Data"]
+
+    D["Azure ADLS Gen2 — Bronze"]
+    E["Python ETL — Silver"]
+    F["Gold — Fact & Dimension Tables"]
+    G["Power BI Semantic Model"]
+    H["Four-Page Analytics Dashboard"]
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+
+
 ### Bronze Layer — Raw Data Ingestion
 
 - Ingested source CSV files into Azure Data Lake Storage Gen2.
