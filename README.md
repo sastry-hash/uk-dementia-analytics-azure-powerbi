@@ -1,4 +1,4 @@
-# uk-dementia-analytics-azure-powerbi
+
 # UK Dementia Analytics — Azure Data Engineering & Power BI
 
 ## Project Overview
