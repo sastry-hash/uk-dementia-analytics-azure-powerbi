@@ -138,13 +138,75 @@ The dashboard contains four analytical pages.
 - Top 10 local authorities by population
 - Local authority demographic comparisons
 
-### Data Quality and Limitations
 
-Data validation includes duplicate detection, missing-value checks and geographical identifier verification.
+## Technical Challenges and Solutions
 
-Dementia indicators and population estimates use different geographical structures. The dashboard therefore presents NHS dementia indicators and local authority population statistics separately rather than calculating an unsupported dementia prevalence rate.
+### 1. Azure Storage Permission Errors
 
-Population reference periods and indicator definitions should be verified against the original source documentation before interpreting results.
+**Challenge:** Encountered `AuthorizationPermissionMismatch`
+errors when uploading processed datasets to Azure Data Lake
+Storage Gen2.
+
+**Solution:** Reviewed Azure storage access permissions,
+updated the required access configuration and successfully
+uploaded datasets to the Silver layer.
+
+**Skills demonstrated:** Azure RBAC, cloud authentication,
+troubleshooting.
+
+### 2. Data Quality and Validation
+
+**Challenge:** Needed to ensure NHS dementia indicators and
+ONS population data were consistent before transformation.
+
+**Solution:** Implemented Python validation checks for
+missing values, duplicates, reporting dates and population
+totals.
+
+**Validation results:**
+- NHS PCDEM: 24,804 records
+- Duplicate PCDEM records: 0
+- Missing PCDEM values: 0
+- ONS MYE2: 404 source records
+- Population total mismatches: 0
+
+**Skills demonstrated:** Python, Pandas, data validation.
+
+### 3. Geographic Data Integration
+
+**Challenge:** NHS Sub-ICB and local authority datasets use
+different geographic boundaries and identifiers.
+
+**Solution:** Inspected geographic lookup data, validated
+identifiers and maintained separate geographic dimensions
+where a reliable direct relationship was unavailable.
+
+**Skills demonstrated:** Data modelling, geographic data
+integration, analytical accuracy.
+
+### 4. Power BI Filtering and Ranking
+
+**Challenge:** Regional Top 10 charts initially displayed
+unexpected rankings because of sorting and slicer settings.
+
+**Solution:** Corrected the chart sorting to use the
+Selected Period Dementia Indicator measure and reviewed
+visual-level Top N filters.
+
+**Skills demonstrated:** Power BI, DAX, report validation.
+
+### 5. Time-Responsive DAX Measures
+
+**Challenge:** The initial latest-month calculation did not
+respond correctly to the selected reporting year.
+
+**Solution:** Developed a selected-period measure using
+MAX(DimDate[Reporting_Date]) so KPIs could respond to
+reporting-period filters.
+
+**Skills demonstrated:** DAX, filter context, semantic
+modelling.
+
 
 Project Purpose
 
