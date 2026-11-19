@@ -211,3 +211,105 @@ modelling.
 Project Purpose
 
 This project demonstrates practical experience in cloud data engineering, data transformation, dimensional modelling, analytical reporting and dashboard development using Azure, Python and Power BI.
+
+## Gold Layer — Dimensional Data Model
+
+The Gold layer contains six analytical tables designed
+for reporting in Power BI.
+
+### Fact Tables
+
+| Table | Description |
+|---|---|
+| FactDementia | Dementia indicator values by reporting period, age, sex and NHS Sub-ICB |
+| FactPopulation | Total population and population aged 65+ by local authority |
+
+### Dimension Tables
+
+| Table | Description |
+|---|---|
+| DimDate | Reporting dates, months and years |
+| DimDemographic | Age groups and sex |
+| DimSubICB | NHS ICB and Sub-ICB information |
+| DimLocalAuthority | English local authority information |
+
+### Power BI Relationships
+
+- DimDate → FactDementia
+- DimDemographic → FactDementia
+- DimSubICB → FactDementia
+- DimLocalAuthority → FactPopulation
+
+The model uses two fact tables with separate geographical
+dimensions.
+
+Dementia indicators are reported by NHS Sub-ICB, while
+population estimates are analysed by local authority.
+
+A direct prevalence calculation is not implemented because
+the geographic boundaries and denominators require further
+validation.
+
+## Power BI — DAX Measures
+
+The Power BI semantic model includes DAX measures
+for time-based reporting, demographic comparisons,
+regional analysis and population statistics.
+
+### Selected Period Dementia Indicator
+
+```dax
+Selected Period Dementia Indicator =
+VAR LatestSelectedDate =
+    MAX(DimDate[Reporting_Date])
+RETURN
+CALCULATE(
+    SUM(FactDementia[Measure_Value]),
+    DimDemographic[Sex] = "ALL",
+    DimDate[Reporting_Date] = LatestSelectedDate
+)
+```
+
+This measure calculates the dementia indicator for
+the latest reporting month within the selected period.
+
+### Monthly Dementia Indicator
+
+```dax
+Monthly Dementia Indicator =
+CALCULATE(
+    SUM(FactDementia[Measure_Value]),
+    DimDemographic[Sex] = "ALL"
+)
+```
+
+This measure supports monthly trend analysis.
+
+### Total Population
+
+```dax
+Total Population =
+SUM(FactPopulation[Total_Population])
+```
+
+### Population Aged 65+
+
+```dax
+Population Aged 65+ =
+SUM(FactPopulation[Population_65_Plus])
+```
+
+### Population Aged 65+ Percentage
+
+```dax
+Population Aged 65+ % =
+DIVIDE(
+    [Population Aged 65+],
+    [Total Population],
+    0
+)
+```
+
+These measures support interactive Power BI dashboards
+with reporting-period and geographical filtering.
+
