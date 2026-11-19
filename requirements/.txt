@@ -1,0 +1,6 @@
+
+pandas
+numpy
+pyarrow
+azure-identity
+azure-storage-file-datalake
