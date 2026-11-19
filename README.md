@@ -68,6 +68,21 @@ The project follows a three-layer Medallion Architecture.
 
 The dashboard contains four analytical pages.
 
+### Dashboard Preview
+
+#### Dashboard Screenshot 1
+![Power BI Dashboard 1](Screenshots/Screenshot%202026-11-19%20231106.png)
+
+#### Dashboard Screenshot 2
+![Power BI Dashboard 2](Screenshots/Screenshot%202026-11-19%20231214.png)
+
+#### Dashboard Screenshot 3
+![Power BI Dashboard 3](Screenshots/Screenshot%202026-11-19%20231411.png)
+
+#### Dashboard Screenshot 4
+![Power BI Dashboard 4](Screenshots/Screenshot%202026-11-19%20231647.png)
+
+
 ### Page 1 — Dementia Overview
 
 - Selected-period dementia indicator
